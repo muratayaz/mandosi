@@ -13,7 +13,7 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { FiChevronDown, FiMenu } from "react-icons/fi";
 
 interface MobileProps extends FlexProps {
@@ -21,6 +21,7 @@ interface MobileProps extends FlexProps {
 }
 
 export default function MobileNav({ onOpen, ...rest }: MobileProps) {
+  const { data } = useSession();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -66,10 +67,7 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
+                  <Text fontSize="sm">{data.user && data.user.name}</Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />
