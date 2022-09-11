@@ -78,7 +78,7 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
+              <MenuItem onClick={() => signOut()}>Çıkış Yap</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

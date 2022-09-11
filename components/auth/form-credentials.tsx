@@ -59,7 +59,7 @@ export default function LoginForm({ onSubmit }) {
 
         <Button
           isLoading={isSubmitting}
-          loadingText="Signing in..."
+          loadingText="Loading..."
           bg={"blue.400"}
           color={"white"}
           type="submit"
@@ -67,7 +67,7 @@ export default function LoginForm({ onSubmit }) {
             bg: "blue.500",
           }}
         >
-          Sign in
+          Giriş Yap
         </Button>
       </Stack>
     </form>
