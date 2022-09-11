@@ -74,7 +74,10 @@ export default function CustomerForm(props: any) {
     }
 
     const result = await handleFormSubmit(values);
-    if (result) reset();
+    if (result) {
+      reset();
+      setImage(null);
+    }
   }
 
   return (
