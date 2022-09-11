@@ -2,7 +2,6 @@ import { Customer } from "@prisma/client";
 import { omit } from "lodash";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import helper from "../../../utils/helper";
 
 export default async function handle(
   req: NextApiRequest,
@@ -49,7 +48,6 @@ async function handleDELETE(res, req) {
 }
 
 async function handlePOST(res, req) {
-  req.body.birthday = helper.ISOtimestampsDate(req.body.birthday);
   const detaildData = req.body.detail || {};
   const customerData = omit(req.body, "detail") as Customer;
   const data = {
@@ -76,9 +74,6 @@ async function handlePOST(res, req) {
 }
 
 async function handlePUT(res, req) {
-  if (req.body.birthday)
-    req.body.birthday = helper.ISOtimestampsDate(req.body.birthday);
-
   const id = Number(req.body.id);
   const detaildData = req.body.detail || {};
   const customerData = omit(req.body, ["id", "detail"]) as Customer;

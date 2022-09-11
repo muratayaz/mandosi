@@ -2,7 +2,6 @@ import { Orders } from "@prisma/client";
 import { omit } from "lodash";
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import helper from "../../../utils/helper";
 
 export default async function handle(
   req: NextApiRequest,
@@ -51,9 +50,6 @@ async function handleDELETE(res, req) {
 }
 
 async function handlePOST(res, req) {
-  req.body.deliveryDate = helper.ISOtimestampsDate(req.body.deliveryDate);
-  req.body.trialDate = helper.ISOtimestampsDate(req.body.trialDate);
-
   const customerId = req.body.customerId;
   const detaildData = req.body.detail || {};
   const orderData = omit(req.body, ["customerId", "detail"]) as Orders;
@@ -88,11 +84,6 @@ async function handlePOST(res, req) {
 }
 
 async function handlePUT(res, req) {
-  if (req.body.deliveryDate)
-    req.body.deliveryDate = helper.ISOtimestampsDate(req.body.deliveryDate);
-  if (req.body.trialDate)
-    req.body.trialDate = helper.ISOtimestampsDate(req.body.trialDate);
-
   const id = Number(req.body.id);
   const customerId = Number(req.body.customerId);
   const detaildData = req.body.detail || {};
