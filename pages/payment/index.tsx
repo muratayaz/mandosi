@@ -10,6 +10,7 @@ import CardBox from "../../components/CardBox";
 import Table from "../../components/Table";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import { Flex, Stack } from "@chakra-ui/react";
+import Head from "next/head";
 
 export default function Payment(props) {
   const customers = useMemo(() => {
@@ -23,39 +24,44 @@ export default function Payment(props) {
   }, [props.debtorCustomers]);
 
   return (
-    <Layout>
-      <Flex
-        minW="full"
-        align="center"
-        justifyContent="center"
-        flexWrap="wrap"
-        gap={10}
-      >
-        <CardBox
-          link="/customers"
-          title="Ödenmemiş"
-          value={`${props.debtorsSum ?? 0} TL`}
-          icon={GiPayMoney}
-          color="red.500"
-        />
-        <CardBox
-          link="/customers"
-          title="Toplam Kazanç"
-          value={`${props.incomeSum ?? 0} TL`}
-          icon={GiReceiveMoney}
-          color="green.500"
-        />
-      </Flex>
+    <>
+      <Head>
+        <title>Ödemeler</title>
+      </Head>
+      <Layout>
+        <Flex
+          minW="full"
+          align="center"
+          justifyContent="center"
+          flexWrap="wrap"
+          gap={10}
+        >
+          <CardBox
+            link="/customers"
+            title="Ödenmemiş"
+            value={`${props.debtorsSum ?? 0} TL`}
+            icon={GiPayMoney}
+            color="red.500"
+          />
+          <CardBox
+            link="/customers"
+            title="Toplam Kazanç"
+            value={`${props.incomeSum ?? 0} TL`}
+            icon={GiReceiveMoney}
+            color="green.500"
+          />
+        </Flex>
 
-      <Stack mt={10} maxW="5xl" mx="auto">
-        <Table
-          title="Ödeme Bekleyen"
-          captions={["Sipariş", "Müşteri", "Borç"]}
-          data={customers}
-          rows={["name", "customerName", "debt"]}
-        />
-      </Stack>
-    </Layout>
+        <Stack mt={10} maxW="5xl" mx="auto">
+          <Table
+            title="Ödeme Bekleyen"
+            captions={["Sipariş", "Müşteri", "Borç"]}
+            data={customers}
+            rows={["name", "customerName", "debt"]}
+          />
+        </Stack>
+      </Layout>
+    </>
   );
 }
 
