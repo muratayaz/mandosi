@@ -39,7 +39,7 @@ export default function Payment(props) {
           <CardBox
             link="/customers"
             title="Ödenmemiş"
-            value={`${props.debtorsSum ?? 0} TL`}
+            value={`${props.incomeSum - props.debtorsSum ?? 0} TL`}
             icon={GiPayMoney}
             color="red.500"
           />
