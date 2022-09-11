@@ -28,16 +28,11 @@ export default function Table({
   const textColor = useColorModeValue("gray.800", "white");
   return (
     <Stack spacing={5} mt={10} overflow="auto" maxH={500}>
-      <Text
-        fontSize="md"
-        fontWeight="bold"
-        textAlign="center"
-        color={textColor}
-      >
+      <Text fontSize="md" fontWeight="bold" color={textColor}>
         {title}
       </Text>
       <ChakraTable
-        variant="striped"
+        // variant="striped"
         colorScheme={useColorModeValue("facebook", "gray")}
         h="full"
       >

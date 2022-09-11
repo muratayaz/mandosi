@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { AxiosResponse } from "axios";
 
 import Layout from "../components/layout";
-import { SimpleGrid } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import { GiPencilRuler } from "react-icons/gi";
 
 import request from "../service/request";
@@ -16,81 +16,66 @@ import CardBox from "../components/CardBox";
 import Head from "next/head";
 
 export default function Home(props) {
-  const lastOrders = useMemo(() => {
-    return props.lastOrders.map((order) => {
+  const upcomingDelivery = useMemo(() => {
+    return props.upcomingDelivery.map((order) => {
       return {
         ...order,
-        deliveryDate: moment(order.deliveryDate).format("DD/MM/YYYY"),
+        date: moment(order.deliveryDate).format("DD/MM/YYYY"),
       };
     });
-  }, [props.lastOrders]);
-  const deliveryDate = useMemo(() => {
-    return props.deliveryDate.map((order) => {
+  }, [props.upcomingDelivery]);
+
+  const upcomingTrial = useMemo(() => {
+    return props.upcomingTrial.map((order) => {
       return {
         ...order,
-        deliveryDate: moment(order.deliveryDate).format("DD/MM/YYYY"),
+        date: moment(order.trialDate).format("DD/MM/YYYY"),
       };
     });
-  }, [props.deliveryDate]);
-  const trialDate = useMemo(() => {
-    return props.trialDate.map((order) => {
-      return {
-        ...order,
-        trialDate: moment(order.trialDate).format("DD/MM/YYYY"),
-      };
-    });
-  }, [props.trialDate]);
+  }, [props.upcomingTrial]);
+
   return (
     <>
       <Head>
         <title>Anasayfa</title>
       </Head>
       <Layout>
-        <CardBox
-          link="/orders"
-          title="Siparişler"
-          value={props.ordersCount}
-          icon={GiPencilRuler}
-          color="blue.500"
-        />
-
-        <SimpleGrid columns={{ base: 1, xl: 2 }} gap={10}>
-          <Table
-            title="Son 10 Sipariş"
-            captions={["Sipariş", "Açıklama", "Teslim Tarihi"]}
-            data={lastOrders}
-            rows={["name", "description", "deliveryDate"]}
+        <Stack align="center">
+          <CardBox
+            link="/orders"
+            title="Toplam Siparişler"
+            value={props.ordersCount}
+            icon={GiPencilRuler}
+            color="blue.500"
           />
+        </Stack>
+
+        <Stack spacing={20} maxW="5xl" mx="auto">
           <Table
-            title="Prova Yaklaşanlar"
+            title="Provası Yaklaşanlar"
             captions={["Sipariş", "Açıklama", "Fiyat", "Prova Tarihi"]}
-            data={trialDate}
-            rows={["name", "description", "price", "trialDate"]}
+            data={upcomingTrial}
+            rows={["name", "description", "price", "date"]}
           />
           <Table
             title="Teslimatı Yaklaşanlar"
             captions={["Sipariş", "Açıklama", "Fiyat", "Teslim Tarihi"]}
-            data={deliveryDate}
-            rows={["name", "description", "price", "deliveryDate"]}
+            data={upcomingDelivery}
+            rows={["name", "description", "price", "date"]}
           />
-        </SimpleGrid>
+        </Stack>
       </Layout>
     </>
   );
 }
 export async function getServerSideProps({ req, res }) {
   const session = await unstable_getServerSession(req, res, options);
-  const [
-    lastOrders,
-    ordersCount,
-    deliveryDate,
-    trialDate,
-  ]: Array<AxiosResponse> = await Promise.all([
-    request.get("orders/last"),
-    request.get("orders/count"),
-    request.get("orders/deliveryDate"),
-    request.get("orders/trialDate"),
-  ]);
+  const [ordersCount, upcomingDelivery, upcomingTrial]: Array<AxiosResponse> =
+    await Promise.all([
+      request.get("orders/count"),
+      request.get("orders/upcoming/delivery"),
+      request.get("orders/upcoming/trial"),
+    ]);
 
   if (!session) {
     return {
@@ -103,10 +88,9 @@ export async function getServerSideProps({ req, res }) {
 
   return {
     props: {
-      lastOrders: lastOrders.data,
       ordersCount: ordersCount.data,
-      deliveryDate: deliveryDate.data,
-      trialDate: trialDate.data,
+      upcomingDelivery: upcomingDelivery.data,
+      upcomingTrial: upcomingTrial.data,
     },
   };
 }

@@ -1,21 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import prisma from "../../../../lib/prisma";
 
-export default async function last(req: NextApiRequest, res: NextApiResponse) {
+export default async function trial(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const orders = await prisma.orders.findMany({
       orderBy: {
-        createdAt: "desc",
+        trialDate: "asc",
       },
       take: 10,
+      where: {
+        trialDate: {
+          gte: today,
+        },
+      },
       select: {
         name: true,
         description: true,
-        deliveryDate: true,
+        trialDate: true,
         price: true,
       },
     });
-
     res.json(orders);
   } else res.status(405).json({ message: "Method Not Allowed" });
 }

@@ -1,8 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import helper from "../../../utils/helper";
+import prisma from "../../../../lib/prisma";
 
-export default async function deliveryDate(
+export default async function delivery(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -16,7 +15,7 @@ export default async function deliveryDate(
       take: 10,
       where: {
         deliveryDate: {
-          gte: helper.ISOtimestampsDate(today.toLocaleDateString()),
+          gte: today,
         },
       },
       select: {
