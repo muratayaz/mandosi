@@ -28,7 +28,7 @@ export default function TableRow({
     >
       <Td minW="150px">
         <Image
-          src={image.url}
+          src={image && image.url}
           w="60px"
           h="60px"
           objectFit="cover"
