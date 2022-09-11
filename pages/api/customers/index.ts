@@ -98,7 +98,12 @@ async function handlePUT(res, req) {
       },
     });
     delete data.imageId;
-  }
+  } else
+    Object.assign(data, {
+      image: {
+        disconnect: true,
+      },
+    });
 
   const customer = await prisma.customer.update({
     where: { id },

@@ -118,7 +118,12 @@ async function handlePUT(res, req) {
       },
     });
     delete data.imageId;
-  }
+  } else
+    Object.assign(data, {
+      image: {
+        disconnect: true,
+      },
+    });
 
   const order = await prisma.orders.update({
     where: {
