@@ -67,7 +67,7 @@ export default function MobileNav({ onOpen, ...rest }: MobileProps) {
                   spacing="1px"
                   ml="2"
                 >
-                  <Text fontSize="sm">{data.user && data.user.name}</Text>
+                  <Text fontSize="sm">{data?.user ? data.user.name : ""}</Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />
