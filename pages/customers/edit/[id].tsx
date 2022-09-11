@@ -9,8 +9,10 @@ import { options } from "../../api/auth/[...nextauth]";
 export default function EditCustomer(props) {
   const toast = useToast();
 
-  async function handleFormSubmit(values: object) {
+  async function handleFormSubmit(values) {
     Object.assign(values, { id: props.customer.id });
+    if (!values.imageId) delete values.imageId;
+
     const { status } = await request.put("/customers", values).catch((err) => {
       toast({
         isClosable: true,

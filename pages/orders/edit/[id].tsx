@@ -34,8 +34,10 @@ export default function EditOrder(props) {
     onClose: onCloseAlert,
   } = useDisclosure();
 
-  async function handleFormSubmit(values: object) {
+  async function handleFormSubmit(values) {
     Object.assign(values, { id: order.id });
+    if (!values.imageId) delete values.imageId;
+
     const { status, data } = await request
       .put("/orders", values)
       .catch((err) => {
@@ -99,7 +101,6 @@ export default function EditOrder(props) {
     pageStyle: "color:#000000",
   });
 
-  console.log(order);
   return (
     <>
       <Head>
