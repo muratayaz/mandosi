@@ -19,7 +19,7 @@ export default async function delivery(
         },
       },
       select: {
-        name: true,
+        createdAt: true,
         description: true,
         deliveryDate: true,
         price: true,

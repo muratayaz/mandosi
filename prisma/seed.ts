@@ -10,6 +10,13 @@ async function main() {
       password: hashPassword("admin"),
     },
   });
+  await prisma.user.create({
+    data: {
+      name: "Nadir Demir",
+      email: "nadirdemir",
+      password: hashPassword("nadirdemir"),
+    },
+  });
 }
 
 main()

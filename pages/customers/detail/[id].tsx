@@ -55,17 +55,11 @@ export default function CustomerDetail({ customer }) {
   }, [customer.Orders]);
 
   const InfoText = ({ title, text }: { title: string; text: string }) => (
-    <Flex gap={2.5} alignItems="center" textAlign="center">
-      <Text color={colorMode} fontWeight="semibold" fontSize="lg" noOfLines={1}>
+    <Flex gap={2.5} alignItems="center" w="full">
+      <Text color={colorMode} fontWeight="semibold" fontSize="md" noOfLines={1}>
         {title}
       </Text>
-      <Text
-        color={colorMode2}
-        fontWeight="medium"
-        fontSize="lg"
-        noOfLines={1}
-        h="27px"
-      >
+      <Text color={colorMode2} fontWeight="medium" noOfLines={1} h="24px">
         {text}
       </Text>
     </Flex>
@@ -117,12 +111,7 @@ export default function CustomerDetail({ customer }) {
             </Flex>
           </Stack>
           <Stack spacing={5}>
-            <Text
-              color={colorMode}
-              fontSize="xl"
-              fontWeight="semibold"
-              textAlign="center"
-            >
+            <Text color={colorMode} fontSize="xl" fontWeight="semibold">
               Müşteri Bilgileri
             </Text>
             <hr />
@@ -140,17 +129,12 @@ export default function CustomerDetail({ customer }) {
           </Stack>
 
           <Stack spacing={5}>
-            <Text
-              color={colorMode}
-              fontSize="xl"
-              fontWeight="semibold"
-              textAlign="center"
-            >
+            <Text color={colorMode} fontSize="xl" fontWeight="semibold">
               Ölçü Bilgileri
             </Text>
             <hr />
 
-            <SimpleGrid columns={{ sm: 4 }} gap={5}>
+            <SimpleGrid columns={{ sm: 3 }} gap={5}>
               {Object.keys(customerDetailTypes).map((key, idx) => {
                 const { title, type } = customerDetailTypes[key];
                 const text = customer.Detail[key];
@@ -167,12 +151,7 @@ export default function CustomerDetail({ customer }) {
           </Stack>
 
           <Stack spacing={5}>
-            <Text
-              color={colorMode}
-              fontSize="xl"
-              fontWeight="semibold"
-              textAlign="center"
-            >
+            <Text color={colorMode} fontSize="xl" fontWeight="semibold">
               Sipariş Bilgileri
             </Text>
             <hr />
@@ -190,7 +169,7 @@ export default function CustomerDetail({ customer }) {
               <Thead>
                 <Tr my=".8rem" pl="0px" color="gray.400">
                   {[
-                    "İsim",
+                    "Oluşturma Tarihi",
                     "Ürün",
                     "Ödenen",
                     "Toplam",
@@ -204,9 +183,8 @@ export default function CustomerDetail({ customer }) {
                         ps={idx === 0 ? "0px" : null}
                         align="center"
                         fontWeight="medium"
-                        fontSize="md"
                       >
-                        <Text textAlign="center" noOfLines={1}>
+                        <Text textAlign="left" noOfLines={2}>
                           {caption}
                         </Text>
                       </Th>
@@ -223,24 +201,22 @@ export default function CustomerDetail({ customer }) {
                       pl="0px"
                       color="gray.400"
                       _hover={{ _dark: { bg: "gray.700" }, bg: "gray.100" }}
+                      cursor="pointer"
+                      onClick={() => router.push(`/orders/edit/${order.id}`)}
                     >
                       <Td ps="0px" align="center">
                         <Text
-                          textAlign="center"
                           color={colorMode2}
                           fontWeight="medium"
-                          fontSize="md"
                           noOfLines={1}
                         >
-                          {order.name}
+                          {moment(order.createdAt).format("DD/MM/YYYY")}
                         </Text>
                       </Td>
                       <Td align="center">
                         <Text
-                          textAlign="center"
                           color={colorMode2}
                           fontWeight="medium"
-                          fontSize="md"
                           noOfLines={1}
                         >
                           {order.type}
@@ -248,10 +224,8 @@ export default function CustomerDetail({ customer }) {
                       </Td>
                       <Td align="center">
                         <Text
-                          textAlign="center"
                           color={colorMode2}
                           fontWeight="medium"
-                          fontSize="md"
                           noOfLines={1}
                         >
                           {order.paid} TL
@@ -259,10 +233,8 @@ export default function CustomerDetail({ customer }) {
                       </Td>
                       <Td align="center">
                         <Text
-                          textAlign="center"
                           color={colorMode2}
                           fontWeight="medium"
-                          fontSize="md"
                           noOfLines={1}
                         >
                           {order.price} TL
@@ -270,10 +242,8 @@ export default function CustomerDetail({ customer }) {
                       </Td>
                       <Td align="center" maxW="200px">
                         <Text
-                          textAlign="center"
                           color={colorMode2}
                           fontWeight="medium"
-                          fontSize="md"
                           noOfLines={3}
                         >
                           {order.description}
@@ -281,10 +251,8 @@ export default function CustomerDetail({ customer }) {
                       </Td>
                       <Td align="center">
                         <Text
-                          textAlign="center"
                           color={colorMode2}
                           fontWeight="medium"
-                          fontSize="md"
                           noOfLines={1}
                         >
                           {moment(order.deliveryDate).format("DD/MM/YYYY")}

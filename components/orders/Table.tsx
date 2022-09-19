@@ -69,8 +69,8 @@ export default function OrderTable({ captions, data }) {
                   <TableRow
                     key={row.id}
                     id={row.id}
-                    name={row.name}
                     image={row.image}
+                    createdAt={row.createdAt}
                     price={row.price}
                     paid={row.paid}
                     deliveryDate={row.deliveryDate}

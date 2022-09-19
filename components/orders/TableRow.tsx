@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 export default function TableRow({
   id,
-  name,
+  createdAt,
   image,
   price,
   paid,
@@ -37,7 +37,7 @@ export default function TableRow({
           fallbackSrc="https://via.placeholder.com/50"
         />
         <Text mt={2.5} ml={1} noOfLines={2}>
-          {String(name).toLocaleUpperCase()}
+          {moment(createdAt).format("DD/MM/YYYY")}
         </Text>
       </Td>
 

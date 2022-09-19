@@ -86,25 +86,32 @@ model Customer {
 }
 
 model Detail {
-  id          Int     @id @default(autoincrement())
-  breast      String?
-  belly       String?
-  ispala      String?
-  roba        String?
-  height      String?
-  arm         String?
-  waist       String?
-  hip         String?
-  ag          String?
-  knee        String?
-  trot        String?
-  frontChest  String?
-  pazu        String?
-  cuff        String?
-  embroidery  String?
-  collarModel String?
-  shoeSize    String?
-  pens        String?
+  id           Int     @id @default(autoincrement())
+  breast       String?
+  belly        String?
+  ispala       String?
+  roba         String?
+  shirtSize    String?
+  coatSize     String?
+  pantSize     String?
+  shirtArmSize String?
+  coatArmSize  String?
+  frontRoba    String?
+  arm          String?
+  waist        String?
+  hip          String?
+  ag           String?
+  knee         String?
+  trot         String?
+  pazu         String?
+  cuff         String?
+  embroidery   String?
+  collor       String?
+  collarModel  String?
+  shoeSize     String?
+  pens         String?
+  frontSize    String?
+  backSize     String?
 
   customer Customer?
   order    Orders?
@@ -117,6 +124,7 @@ enum OrderType {
   YELEK
   KABAN
   AYAKKABI
+  DIGER
 }
 
 enum PaymentType {
@@ -128,9 +136,7 @@ enum PaymentType {
 }
 
 model Orders {
-  id     Int     @id @default(autoincrement())
-  name   String
-  status Boolean @default(false)
+  id Int @id @default(autoincrement())
 
   imageId String?
   image   Image?  @relation(fields: [imageId], references: [id], onDelete: Cascade)
@@ -142,6 +148,7 @@ model Orders {
   type         OrderType?
   deliveryDate DateTime?
   trialDate    DateTime?
+  trialDate2   DateTime?
   description  String?
 
   createdAt DateTime @default(now())

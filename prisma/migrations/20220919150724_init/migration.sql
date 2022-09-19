@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "OrderType" AS ENUM ('CEKET', 'PANTOLON', 'GOMLEK', 'YELEK', 'KABAN', 'AYAKKABI');
+CREATE TYPE "OrderType" AS ENUM ('CEKET', 'PANTOLON', 'GOMLEK', 'YELEK', 'KABAN', 'AYAKKABI', 'DIGER');
 
 -- CreateEnum
 CREATE TYPE "PaymentType" AS ENUM ('KREDIKARTI', 'HAVALE', 'NAKIT', 'EURO', 'DOLAR');
@@ -88,20 +88,27 @@ CREATE TABLE "Detail" (
     "belly" TEXT,
     "ispala" TEXT,
     "roba" TEXT,
-    "height" TEXT,
+    "shirtSize" TEXT,
+    "coatSize" TEXT,
+    "pantSize" TEXT,
+    "shirtArmSize" TEXT,
+    "coatArmSize" TEXT,
+    "frontRoba" TEXT,
     "arm" TEXT,
     "waist" TEXT,
     "hip" TEXT,
     "ag" TEXT,
     "knee" TEXT,
     "trot" TEXT,
-    "frontChest" TEXT,
     "pazu" TEXT,
     "cuff" TEXT,
     "embroidery" TEXT,
+    "collor" TEXT,
     "collarModel" TEXT,
     "shoeSize" TEXT,
     "pens" TEXT,
+    "frontSize" TEXT,
+    "backSize" TEXT,
 
     CONSTRAINT "Detail_pkey" PRIMARY KEY ("id")
 );
@@ -109,8 +116,6 @@ CREATE TABLE "Detail" (
 -- CreateTable
 CREATE TABLE "Orders" (
     "id" SERIAL NOT NULL,
-    "name" TEXT NOT NULL,
-    "status" BOOLEAN NOT NULL DEFAULT false,
     "imageId" TEXT,
     "paymentType" "PaymentType",
     "price" INTEGER,
@@ -118,6 +123,7 @@ CREATE TABLE "Orders" (
     "type" "OrderType",
     "deliveryDate" TIMESTAMP(3),
     "trialDate" TIMESTAMP(3),
+    "trialDate2" TIMESTAMP(3),
     "description" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

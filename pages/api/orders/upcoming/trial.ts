@@ -15,11 +15,17 @@ export default async function trial(req: NextApiRequest, res: NextApiResponse) {
         trialDate: {
           gte: today,
         },
+        OR: {
+          trialDate2: {
+            gte: today,
+          },
+        },
       },
       select: {
-        name: true,
+        createdAt: true,
         description: true,
         trialDate: true,
+        trialDate2: true,
         price: true,
       },
     });

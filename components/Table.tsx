@@ -31,11 +31,7 @@ export default function Table({
       <Text fontSize="md" fontWeight="bold" color={textColor}>
         {title}
       </Text>
-      <ChakraTable
-        // variant="striped"
-        colorScheme={useColorModeValue("facebook", "gray")}
-        h="full"
-      >
+      <ChakraTable colorScheme={useColorModeValue("facebook", "gray")} h="full">
         <Thead>
           <Tr pl="0px">
             {captions.map((caption, idx) => {

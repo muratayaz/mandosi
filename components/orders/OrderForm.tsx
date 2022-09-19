@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { customerDetailTypes } from "../../constants/customer";
 import request from "../../service/request";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdRestoreFromTrash } from "react-icons/md";
 import { maxAllowedSize } from "../../constants/image";
 
@@ -37,13 +37,12 @@ export default function OrderForm(props: any) {
   const scheme = yup
     .object()
     .shape({
-      name: yup.string().required("Sipariş adını giriniz"),
       customerId: yup.number().required("Müşteriyi seçiniz"),
       type: yup.string().required("Sipariş kategorisini seçiniz"),
       deliveryDate: yup.date().min(today, "Geçerli bir tarih giriniz"),
       trialDate: yup.date().min(today, "Geçerli bir tarih giriniz"),
       description: yup.string(),
-      paymentType: yup.string(),
+      paymentType: yup.string().required("Ödeme tipini seçiniz"),
       price: yup.number().required("Sipariş fiyatını giriniz"),
       paid: yup
         .number()
@@ -69,29 +68,26 @@ export default function OrderForm(props: any) {
     resolver: yupResolver(scheme),
   });
 
-  // useEffect(() => {
-  //   if (watch("image").name) {
-  //     setImage(URL.createObjectURL(watch("image")));
-  //   }
-  // }, [watch("image")]);
+  useEffect(() => {
+    const id = Number(watch("customerId"));
+    const category = watch("type");
+    if (id > 0 && category) {
+      const customer = customers.find((c) => c.id === id);
+      console.log(customer);
 
-  // useEffect(() => {
-  //   const id = Number(watch("customerId"));
-  //   if (id > 0) {
-  //     const customer = customers.find((c) => c.id === id);
-  //     if (customer) {
-  //       Object.keys(customerDetailTypes).forEach((key) => {
-  //         if (
-  //           !watch(`detail.${key}`) &&
-  //           customerDetailTypes[key].category.some((x) => x === watch("type"))
-  //         ) {
-  //           console.log("object");
-  //           setValue(`detail.${key}`, customer.Detail[key]);
-  //         }
-  //       });
-  //     }
-  //   }
-  // }, [watch("customerId")]);
+      if (customer) {
+        Object.keys(customerDetailTypes).forEach((key) => {
+          if (
+            customerDetailTypes[key].category.some((x) => x === watch("type"))
+          )
+            setValue(`detail.${key}`, customer.Detail[key]);
+          else {
+            setValue(`detail.${key}`, null);
+          }
+        });
+      }
+    }
+  }, [watch("customerId"), watch("type")]);
 
   async function onSubmit(values) {
     if (image && !image.url) {
@@ -111,6 +107,10 @@ export default function OrderForm(props: any) {
       });
       values.imageId = response.data;
     }
+    if (values.trialDate2) {
+      values.trialDate2 = new Date(values.trialDate2);
+    } else values.trialDate2 = null;
+
     const result = await handleFormSubmit(values);
     if (result) {
       reset();
@@ -181,13 +181,20 @@ export default function OrderForm(props: any) {
             }}
             gap={5}
           >
-            <FormControl id="name" isInvalid={Boolean(errors.name)}>
-              <FormLabel noOfLines={1}>İsim</FormLabel>
-              <Input
-                id="name"
-                defaultValue={order.name}
-                {...register("name")}
-              />
+            <FormControl id="type" isInvalid={Boolean(errors.type)}>
+              <FormLabel noOfLines={1}>Kategori</FormLabel>
+              <Select
+                id="type"
+                placeholder="Kategori Seçiniz"
+                defaultValue={order.type}
+                {...register("type")}
+              >
+                {Object.values(OrderType).map((type, idx) => (
+                  <option key={idx} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </Select>
             </FormControl>
 
             <FormControl id="customerId" isInvalid={Boolean(errors.customerId)}>
@@ -205,6 +212,7 @@ export default function OrderForm(props: any) {
                 ))}
               </Select>
             </FormControl>
+
             <GridItem
               colSpan={{
                 sm: 2,
@@ -216,32 +224,33 @@ export default function OrderForm(props: any) {
                 }}
                 gap={5}
               >
-                <FormControl id="type" isInvalid={Boolean(errors.type)}>
-                  <FormLabel noOfLines={1}>Kategori</FormLabel>
-                  <Select
-                    id="type"
-                    placeholder="Kategori Seçiniz"
-                    defaultValue={order.type}
-                    {...register("type")}
-                  >
-                    {Object.values(OrderType).map((type, idx) => (
-                      <option key={idx} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-
                 <FormControl
                   id="trialDate"
                   isInvalid={Boolean(errors.trialDate)}
                 >
-                  <FormLabel noOfLines={1}>Prova Tarihi</FormLabel>
+                  <FormLabel noOfLines={1}>1. Prova Tarihi</FormLabel>
                   <Input
                     id="trialDate"
                     type="date"
                     defaultValue={moment(order.trialDate).format("YYYY-MM-DD")}
                     {...register("trialDate")}
+                  />
+                </FormControl>
+
+                <FormControl
+                  id="trialDate2"
+                  isInvalid={Boolean(errors.trialDate2)}
+                >
+                  <FormLabel noOfLines={1}>2. Prova Tarihi</FormLabel>
+                  <Input
+                    id="trialDate2"
+                    type="date"
+                    defaultValue={
+                      order.trialDate2
+                        ? moment(order.trialDate2).format("YYYY-MM-DD")
+                        : null
+                    }
+                    {...register("trialDate2")}
                   />
                 </FormControl>
 

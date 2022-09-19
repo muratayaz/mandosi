@@ -29,22 +29,40 @@ export const customerDetailTypes = {
     category: [OrderType.CEKET, OrderType.KABAN, OrderType.GOMLEK],
   },
 
+  shirtSize: {
+    title: "Gömlek Boyu",
+    type: "number",
+    category: [OrderType.GOMLEK],
+  },
+  coatSize: {
+    title: "Çeket Boyu",
+    type: "number",
+    category: [OrderType.CEKET],
+  },
+  pantSize: {
+    title: "Pantolon Boyu",
+    type: "number",
+    category: [OrderType.PANTOLON],
+  },
+  shirtArmSize: {
+    title: "Gömlek Kol Boyu",
+    type: "number",
+    category: [OrderType.GOMLEK],
+  },
+  coatArmSize: {
+    title: "Çeket Kol Boyu",
+    type: "number",
+    category: [OrderType.CEKET],
+  },
   roba: {
     title: "Roba",
     type: "number",
     category: [OrderType.CEKET, OrderType.KABAN, OrderType.GOMLEK],
   },
-
-  height: {
-    title: "Boy",
+  frontRoba: {
+    title: "Ön Roba",
     type: "number",
-    category: [
-      OrderType.CEKET,
-      OrderType.KABAN,
-      OrderType.GOMLEK,
-      OrderType.YELEK,
-      OrderType.PANTOLON,
-    ],
+    category: [OrderType.GOMLEK],
   },
 
   arm: {
@@ -72,21 +90,15 @@ export const customerDetailTypes = {
   },
 
   knee: {
-    title: "Diz Boyu",
+    title: "Diz Genişliği",
     type: "number",
     category: [OrderType.PANTOLON],
   },
 
   trot: {
-    title: "Paça Boyu",
+    title: "Paça Genişliği",
     type: "number",
     category: [OrderType.PANTOLON],
-  },
-
-  frontChest: {
-    title: "Ön Göğüs",
-    type: "number",
-    category: [OrderType.GOMLEK],
   },
 
   pazu: {
@@ -107,10 +119,25 @@ export const customerDetailTypes = {
     category: [OrderType.GOMLEK],
   },
 
+  collor: {
+    title: "Yaka",
+    type: "text",
+    category: [OrderType.GOMLEK],
+  },
   collarModel: {
     title: "Yaka Modeli",
     type: "text",
     category: [OrderType.GOMLEK],
+  },
+  backSize: {
+    title: "Arka Boy",
+    type: "number",
+    category: [OrderType.CEKET, OrderType.GOMLEK],
+  },
+  frontSize: {
+    title: "Ön Boy",
+    type: "number",
+    category: [OrderType.CEKET, OrderType.GOMLEK],
   },
   shoeSize: {
     title: "Ayakkabı Numarası",

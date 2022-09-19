@@ -11,12 +11,13 @@ import Table from "../../components/Table";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 import { Flex, Stack } from "@chakra-ui/react";
 import Head from "next/head";
+import moment from "moment";
 
 export default function Payment(props) {
   const customers = useMemo(() => {
-    return props.debtorCustomers.map(({ name, paid, price, Customer }) => {
+    return props.debtorCustomers.map(({ createdAt, paid, price, Customer }) => {
       return {
-        name,
+        createdAt: moment(createdAt).format("DD/MM/YYYY"),
         debt: price - paid,
         customerName: Customer.name,
       };
@@ -38,14 +39,21 @@ export default function Payment(props) {
         >
           <CardBox
             link="/customers"
-            title="Ödenmemiş"
+            title="Alınan Avans"
+            value={`${props.debtorsSum ?? 0} TL`}
+            icon={GiPayMoney}
+            color="red.500"
+          />
+          <CardBox
+            link="/customers"
+            title="Toplam Borç"
             value={`${props.incomeSum - props.debtorsSum ?? 0} TL`}
             icon={GiPayMoney}
             color="red.500"
           />
           <CardBox
             link="/customers"
-            title="Toplam Kazanç"
+            title="Toplam Tutar"
             value={`${props.incomeSum ?? 0} TL`}
             icon={GiReceiveMoney}
             color="green.500"
@@ -55,9 +63,9 @@ export default function Payment(props) {
         <Stack mt={10} maxW="5xl" mx="auto">
           <Table
             title="Ödeme Bekleyen"
-            captions={["Sipariş", "Müşteri", "Borç"]}
+            captions={["Oluşturma Tarihi", "Müşteri", "Borç"]}
             data={customers}
-            rows={["name", "customerName", "debt"]}
+            rows={["createdAt", "customerName", "debt"]}
           />
         </Stack>
       </Layout>

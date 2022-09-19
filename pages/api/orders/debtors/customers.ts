@@ -15,7 +15,7 @@ export default async function customers(
         },
       },
       select: {
-        name: true,
+        createdAt: true,
         paid: true,
         price: true,
         Customer: {

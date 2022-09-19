@@ -16,23 +16,26 @@ import CardBox from "../components/CardBox";
 import Head from "next/head";
 
 export default function Home(props) {
-  const upcomingDelivery = useMemo(() => {
-    return props.upcomingDelivery.map((order) => {
-      return {
-        ...order,
-        date: moment(order.deliveryDate).format("DD/MM/YYYY"),
-      };
-    });
-  }, [props.upcomingDelivery]);
-
   const upcomingTrial = useMemo(() => {
     return props.upcomingTrial.map((order) => {
       return {
         ...order,
-        date: moment(order.trialDate).format("DD/MM/YYYY"),
+        createdAt: moment(order.createdAt).format("DD/MM/YYYY"),
+        trialDate: moment(order.trialDate).format("DD/MM/YYYY"),
+        trialDate2: moment(order.trialDate2).format("DD/MM/YYYY"),
       };
     });
   }, [props.upcomingTrial]);
+
+  const upcomingDelivery = useMemo(() => {
+    return props.upcomingDelivery.map((order) => {
+      return {
+        ...order,
+        createdAt: moment(order.createdAt).format("DD/MM/YYYY"),
+        date: moment(order.deliveryDate).format("DD/MM/YYYY"),
+      };
+    });
+  }, [props.upcomingDelivery]);
 
   return (
     <>
@@ -53,15 +56,32 @@ export default function Home(props) {
         <Stack spacing={20} maxW="5xl" mx="auto">
           <Table
             title="Provası Yaklaşanlar"
-            captions={["Sipariş", "Açıklama", "Fiyat", "Prova Tarihi"]}
+            captions={[
+              "Oluşturma Tarihi",
+              "Açıklama",
+              "Fiyat",
+              "1.Prova Tarihi",
+              "2.Prova Tarihi",
+            ]}
             data={upcomingTrial}
-            rows={["name", "description", "price", "date"]}
+            rows={[
+              "createdAt",
+              "description",
+              "price",
+              "trialDate",
+              "trialDate2",
+            ]}
           />
           <Table
             title="Teslimatı Yaklaşanlar"
-            captions={["Sipariş", "Açıklama", "Fiyat", "Teslim Tarihi"]}
+            captions={[
+              "Oluşturma Tarihi",
+              "Açıklama",
+              "Fiyat",
+              "Teslim Tarihi",
+            ]}
             data={upcomingDelivery}
-            rows={["name", "description", "price", "date"]}
+            rows={["createdAt", "description", "price", "date"]}
           />
         </Stack>
       </Layout>

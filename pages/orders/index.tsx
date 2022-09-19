@@ -17,7 +17,7 @@ export default function Orders(props) {
       <Layout>
         <OrdersTable
           captions={[
-            "İsim",
+            "Oluşturma Tarihi",
             "Müşteri",
             "Kalan Tutar",
             "Açıklama",

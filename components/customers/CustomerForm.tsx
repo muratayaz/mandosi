@@ -218,7 +218,9 @@ export default function CustomerForm(props: any) {
                     {...register(`detail.${key}`)}
                   />
                   <InputRightElement
-                    children="cm"
+                    children={
+                      customerDetailTypes[key].type === "number" ? "cm" : ""
+                    }
                     color={useColorModeValue("gray.800", "gray.500")}
                   />
                 </InputGroup>
