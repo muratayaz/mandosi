@@ -1,5 +1,4 @@
 import { OrderType } from "@prisma/client";
-
 export const customerDetailTypes = {
   breast: {
     title: "Göğüs",
@@ -35,7 +34,7 @@ export const customerDetailTypes = {
     category: [OrderType.GOMLEK],
   },
   coatSize: {
-    title: "Çeket Boyu",
+    title: "Ceket Boyu",
     type: "number",
     category: [OrderType.CEKET],
   },
@@ -50,7 +49,7 @@ export const customerDetailTypes = {
     category: [OrderType.GOMLEK],
   },
   coatArmSize: {
-    title: "Çeket Kol Boyu",
+    title: "Ceket Kol Boyu",
     type: "number",
     category: [OrderType.CEKET],
   },
@@ -119,16 +118,6 @@ export const customerDetailTypes = {
     category: [OrderType.GOMLEK],
   },
 
-  collor: {
-    title: "Yaka",
-    type: "text",
-    category: [OrderType.GOMLEK],
-  },
-  collarModel: {
-    title: "Yaka Modeli",
-    type: "text",
-    category: [OrderType.GOMLEK],
-  },
   backSize: {
     title: "Arka Boy",
     type: "number",
@@ -149,4 +138,59 @@ export const customerDetailTypes = {
     type: "text",
     category: [OrderType.GOMLEK],
   },
+
+  collor: {
+    title: "Yaka",
+    type: "text",
+    category: [OrderType.GOMLEK],
+  },
+  collarModel: {
+    title: "Yaka Modeli",
+    type: "image",
+    category: [OrderType.GOMLEK],
+  },
 };
+
+export const collarModel = [
+  //generate objects with id 1-80 and image /img/yaka-modeli-(id).png and name Yaka Modeli (id)
+  {
+    id: 1,
+    image: "/img/yaka-modeli-(1).png",
+    name: "Yaka Modeli 1",
+  },
+  {
+    id: 2,
+    image: "/img/yaka-modeli-(2).png",
+    name: "Yaka Modeli 2",
+  },
+  {
+    id: 3,
+    image: "/img/yaka-modeli-(3).png",
+    name: "Yaka Modeli 3",
+  },
+  {
+    id: 4,
+    image: "/img/yaka-modeli-(4).png",
+    name: "Yaka Modeli 4",
+  },
+  {
+    id: 5,
+    image: "/img/yaka-modeli-(5).png",
+    name: "Yaka Modeli 5",
+  },
+  {
+    id: 6,
+    image: "/img/yaka-modeli-(6).png",
+    name: "Yaka Modeli 6",
+  },
+  {
+    id: 7,
+    image: "/img/yaka-modeli-(7).png",
+    name: "Yaka Modeli 7",
+  },
+  {
+    id: 8,
+    image: "/img/yaka-modeli-(8).png",
+    name: "Yaka Modeli 8",
+  },
+];

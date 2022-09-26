@@ -56,12 +56,9 @@ export default function OrderTable({ captions, data }) {
           <Tbody>
             {data.map(
               (row) =>
-                (String(row.name)
+                (String(row.Customer.name)
                   .toLocaleLowerCase()
                   .includes(String(search).toLocaleLowerCase()) ||
-                  String(row.Customer.name)
-                    .toLocaleLowerCase()
-                    .includes(String(search).toLocaleLowerCase()) ||
                   String(row.description)
                     .toLocaleLowerCase()
                     .includes(String(search).toLocaleLowerCase()) ||

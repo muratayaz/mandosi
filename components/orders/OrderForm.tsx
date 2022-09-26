@@ -26,6 +26,7 @@ import request from "../../service/request";
 import { useEffect, useState } from "react";
 import { MdRestoreFromTrash } from "react-icons/md";
 import { maxAllowedSize } from "../../constants/image";
+import CollarModelsModal from "./CollarModelsModal";
 
 export default function OrderForm(props: any) {
   const today = new Date();
@@ -361,14 +362,23 @@ export default function OrderForm(props: any) {
                   <FormLabel noOfLines={1}>
                     {customerDetailTypes[key]?.title ?? key}
                   </FormLabel>
-                  <InputGroup>
-                    <Input
-                      id={`detail.${key}`}
-                      defaultValue={order.Detail && order.Detail[key]}
-                      {...register(`detail.${key}`)}
-                    />
-                    <InputRightElement children="cm" color="gray.500" />
-                  </InputGroup>
+                  {customerDetailTypes[key].type === "image" ? (
+                    <CollarModelsModal setValue={setValue} />
+                  ) : (
+                    <InputGroup>
+                      <Input
+                        id={`detail.${key}`}
+                        defaultValue={order.Detail && order.Detail[key]}
+                        {...register(`detail.${key}`)}
+                      />
+                      <InputRightElement
+                        children={
+                          customerDetailTypes[key].type === "number" ? "cm" : ""
+                        }
+                        color="gray.500"
+                      />
+                    </InputGroup>
+                  )}
                 </FormControl>
               ))}
             </SimpleGrid>
