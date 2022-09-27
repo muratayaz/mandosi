@@ -27,6 +27,7 @@ import { useEffect, useState } from "react";
 import { MdRestoreFromTrash } from "react-icons/md";
 import { maxAllowedSize } from "../../constants/image";
 import CollarModelsModal from "./CollarModelsModal";
+import { collarModel } from "../../constants/collorModel";
 
 export default function OrderForm(props: any) {
   const today = new Date();
@@ -363,7 +364,32 @@ export default function OrderForm(props: any) {
                     {customerDetailTypes[key]?.title ?? key}
                   </FormLabel>
                   {customerDetailTypes[key].type === "image" ? (
-                    <CollarModelsModal setValue={setValue} />
+                    <>
+                      <CollarModelsModal
+                        selected={
+                          watch("detail.collarModel") ||
+                          order.Detail?.collarModel
+                        }
+                        setValue={setValue}
+                      />
+                      {(watch("detail.collarModel") ||
+                        order.Detail?.collarModel) && (
+                        <Stack mt={2} mx="auto" maxW={200}>
+                          <Image
+                            src={
+                              collarModel.find(
+                                (x) =>
+                                  x.id ===
+                                  (watch("detail.collarModel") ||
+                                    order?.Detail.collarModel)
+                              ).image
+                            }
+                            objectFit="contain"
+                            objectPosition="center"
+                          />
+                        </Stack>
+                      )}
+                    </>
                   ) : (
                     <InputGroup>
                       <Input

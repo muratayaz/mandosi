@@ -15,11 +15,11 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React from "react";
-import { collarModel } from "../../constants/customer";
+import { collarModel } from "../../constants/collorModel";
 
-function CollarModelsModal({ setValue }) {
+function CollarModelsModal({ selected, setValue }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  console.log(selected);
   return (
     <>
       <Button w="full" onClick={onOpen}>
@@ -44,13 +44,17 @@ function CollarModelsModal({ setValue }) {
                   key={idx}
                   cursor="pointer"
                   _hover={{ bg: "gray.400" }}
+                  bg={item.id === selected ? "gray.400" : ""}
                   p={2}
-                  // onClick={() => {
-                  //   setValue("collarModel", item.name);
-                  //   onClose();
-                  // }}
+                  onClick={() => {
+                    setValue(
+                      "detail.collarModel",
+                      selected === item.id ? "" : item.id
+                    );
+                    onClose();
+                  }}
                 >
-                  <Text>{item.name}</Text>
+                  <Text textAlign="center">{item.name}</Text>
                   <Stack maxW={200}>
                     <Image
                       src={item.image}
