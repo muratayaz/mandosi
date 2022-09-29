@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "",
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"

@@ -145,8 +145,13 @@ export const customerDetailTypes = {
     category: [OrderType.GOMLEK],
   },
   collarModel: {
-    title: "Yaka Modeli",
+    title: "Model",
     type: "image",
-    category: [OrderType.GOMLEK],
+    category: [
+      OrderType.GOMLEK,
+      OrderType.CEKET,
+      OrderType.KABAN,
+      OrderType.PANTOLON,
+    ],
   },
 };

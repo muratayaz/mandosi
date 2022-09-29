@@ -14,12 +14,14 @@ import {
   Text,
   useDisclosure,
   useToast,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import request from "../../../service/request";
 import OrderForm from "../../../components/orders/OrderForm";
 import Layout from "../../../components/layout";
 import Alert from "../../../components/Alert";
 import { MdDelete, MdDownload } from "react-icons/md";
+import OrderDetailPrint from "../../../components/orders/OrderDetailPrint";
 
 export default function EditOrder(props) {
   const toast = useToast();
@@ -108,6 +110,11 @@ export default function EditOrder(props) {
       </Head>
       <Layout>
         <Box py={5} w="full" maxW="5xl" mx="auto">
+          <VisuallyHidden>
+            <div ref={componentRef}>
+              <OrderDetailPrint order={order} customers={props.customers} />
+            </div>
+          </VisuallyHidden>
           <Stack mb={10}>
             <Flex justify="space-between" align="center" gap={5}>
               <Text fontSize="xl" fontWeight="semibold">
@@ -133,7 +140,7 @@ export default function EditOrder(props) {
             </Flex>
             <hr />
           </Stack>
-          <Stack ref={componentRef}>
+          <Stack>
             <OrderForm
               order={order}
               customers={props.customers}

@@ -13,6 +13,7 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 
 import { options } from "../../api/auth/[...nextauth]";
@@ -28,6 +29,7 @@ import { useRouter } from "next/router";
 import Layout from "../../../components/layout";
 import { useReactToPrint } from "react-to-print";
 import Head from "next/head";
+import CustomerDetailPrint from "../../../components/customers/CustomerDetailPrint";
 
 export default function CustomerDetail({ customer }) {
   const router = useRouter();
@@ -79,6 +81,12 @@ export default function CustomerDetail({ customer }) {
         <title>Müşteri Detay | {customer.name}</title>
       </Head>
       <Layout>
+        <VisuallyHidden>
+          <div ref={customerRef}>
+            <CustomerDetailPrint customer={customer} totalPrice={totalPrice} />
+          </div>
+        </VisuallyHidden>
+
         <Stack spacing={10} w="full" maxW="3xl" mx="auto" py={10}>
           <Stack spacing={5}>
             <Avatar
@@ -110,7 +118,7 @@ export default function CustomerDetail({ customer }) {
             </Flex>
           </Stack>
 
-          <Stack spacing={10} ref={customerRef}>
+          <Stack spacing={10}>
             <Stack spacing={5}>
               <Text color={colorMode} fontSize="xl" fontWeight="semibold">
                 Müşteri Bilgileri

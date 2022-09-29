@@ -91,6 +91,13 @@ export default function OrderForm(props: any) {
     }
   }, [watch("customerId"), watch("type")]);
 
+  function clearModel() {
+    if (order?.Detail.collarModel) {
+      order.Detail.collarModel = null;
+    }
+    setValue("detail.collarModel", "");
+  }
+
   async function onSubmit(values) {
     if (image && !image.url) {
       const formData = new FormData();
@@ -371,6 +378,7 @@ export default function OrderForm(props: any) {
                           order.Detail?.collarModel
                         }
                         setValue={setValue}
+                        clearModel={clearModel}
                       />
                       {(watch("detail.collarModel") ||
                         order.Detail?.collarModel) && (
@@ -382,7 +390,7 @@ export default function OrderForm(props: any) {
                                   x.id ===
                                   (watch("detail.collarModel") ||
                                     order?.Detail.collarModel)
-                              ).image
+                              )?.image ?? null
                             }
                             objectFit="contain"
                             objectPosition="center"
