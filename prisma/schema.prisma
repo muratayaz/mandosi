@@ -92,7 +92,6 @@ model Detail {
   ispala       String?
   roba         String?
   shirtSize    String?
-  coatSize     String?
   pantSize     String?
   shirtArmSize String?
   coatArmSize  String?
@@ -127,6 +126,10 @@ enum OrderType {
   DIGER
 }
 
+enum BrandType {
+  DIGER
+}
+
 enum PaymentType {
   KREDIKARTI
   HAVALE
@@ -144,6 +147,7 @@ model Orders {
   paymentType PaymentType?
   price       Int?
   paid        Int?
+  brand       BrandType?
 
   type         OrderType?
   deliveryDate DateTime?

@@ -35,13 +35,10 @@ export default function CustomerForm(props: any) {
     .object()
     .shape({
       name: yup.string().required("Adınızı giriniz"),
-      email: yup
-        .string()
-        .email("Geçerli bir e-posta adresi giriniz")
-        .required("E-posta adresi giriniz"),
-      phone: yup.string().required("Telefon numarasını giriniz"),
-      address: yup.string().required("Adresi giriniz"),
-      birthday: yup.date().required("Doğum tarihinizi giriniz"),
+      email: yup.string().email("Geçerli bir e-posta adresi giriniz"),
+      phone: yup.string(),
+      address: yup.string(),
+      birthday: yup.date(),
     })
     .defined();
 
@@ -201,31 +198,36 @@ export default function CustomerForm(props: any) {
         </SimpleGrid>
 
         <Stack>
-          <SimpleGrid columns={[1, 2, 3, 4]} gap={5}>
-            {Object.keys(customerDetailTypes).map((key) => (
-              <FormControl
-                key={key}
-                id={`detail.${key}`}
-                isInvalid={errors.detail && Boolean(errors.detail[key])}
-              >
-                <FormLabel noOfLines={1}>
-                  {customerDetailTypes[key]?.title ?? key}
-                </FormLabel>
-                <InputGroup>
-                  <Input
+          <SimpleGrid columns={{ sm: 3 }} gap={5}>
+            {Object.keys(customerDetailTypes).map(
+              (key) =>
+                key !== "collarModel" && (
+                  <FormControl
+                    key={key}
                     id={`detail.${key}`}
-                    defaultValue={customer?.Detail && customer.Detail[key]}
-                    {...register(`detail.${key}`)}
-                  />
-                  <InputRightElement
-                    children={
-                      customerDetailTypes[key].type === "number" ? "cm" : ""
-                    }
-                    color={useColorModeValue("gray.800", "gray.500")}
-                  />
-                </InputGroup>
-              </FormControl>
-            ))}
+                    isInvalid={errors.detail && Boolean(errors.detail[key])}
+                    gridColumnStart={customerDetailTypes[key]?.position?.column}
+                    gridRowStart={customerDetailTypes[key]?.position?.row}
+                  >
+                    <FormLabel noOfLines={1}>
+                      {customerDetailTypes[key]?.title ?? key}
+                    </FormLabel>
+                    <InputGroup>
+                      <Input
+                        id={`detail.${key}`}
+                        defaultValue={customer?.Detail && customer.Detail[key]}
+                        {...register(`detail.${key}`)}
+                      />
+                      <InputRightElement
+                        children={
+                          customerDetailTypes[key].type === "number" ? "cm" : ""
+                        }
+                        color={useColorModeValue("gray.800", "gray.500")}
+                      />
+                    </InputGroup>
+                  </FormControl>
+                )
+            )}
           </SimpleGrid>
         </Stack>
 

@@ -1,7 +1,7 @@
 import { Flex, Image, Stack, Text } from "@chakra-ui/react";
 import moment from "moment";
 import React from "react";
-import { collarModel } from "../../constants/collorModel";
+import { collarModel } from "../../constants/collarModel";
 import { customerDetailTypes } from "../../constants/customer";
 
 function OrderDetailPrint({ order, customers }) {
@@ -113,7 +113,7 @@ function OrderDetailPrint({ order, customers }) {
               const text = order.Detail[key];
 
               if (category.some((x) => x === order.type)) {
-                if (type === "image") {
+                if (type === "image" && order?.Detail?.collarModel) {
                   return (
                     <div
                       style={{

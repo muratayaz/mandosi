@@ -3,6 +3,10 @@ export const customerDetailTypes = {
   breast: {
     title: "Göğüs",
     type: "number",
+    position: {
+      column: 1,
+      row: 1,
+    },
     category: [
       OrderType.CEKET,
       OrderType.KABAN,
@@ -14,6 +18,10 @@ export const customerDetailTypes = {
   belly: {
     title: "Göbek",
     type: "number",
+    position: {
+      column: 1,
+      row: 2,
+    },
     category: [
       OrderType.CEKET,
       OrderType.KABAN,
@@ -25,71 +33,104 @@ export const customerDetailTypes = {
   ispala: {
     title: "İspala",
     type: "number",
+    position: {
+      column: 1,
+      row: 3,
+    },
     category: [OrderType.CEKET, OrderType.KABAN, OrderType.GOMLEK],
   },
 
   shirtSize: {
     title: "Gömlek Boyu",
     type: "number",
+    position: {
+      column: 2,
+      row: 1,
+    },
     category: [OrderType.GOMLEK],
-  },
-  coatSize: {
-    title: "Ceket Boyu",
-    type: "number",
-    category: [OrderType.CEKET],
   },
   pantSize: {
     title: "Pantolon Boyu",
     type: "number",
+    position: {
+      column: 3,
+      row: 6,
+    },
     category: [OrderType.PANTOLON],
   },
   shirtArmSize: {
     title: "Gömlek Kol Boyu",
     type: "number",
+    position: {
+      column: 2,
+      row: 2,
+    },
     category: [OrderType.GOMLEK],
   },
   coatArmSize: {
     title: "Ceket Kol Boyu",
+    position: {
+      column: 1,
+      row: 7,
+    },
     type: "number",
     category: [OrderType.CEKET],
   },
   roba: {
     title: "Roba",
     type: "number",
+    position: {
+      column: 1,
+      row: 4,
+    },
     category: [OrderType.CEKET, OrderType.KABAN, OrderType.GOMLEK],
   },
   frontRoba: {
     title: "Ön Roba",
     type: "number",
     category: [OrderType.GOMLEK],
-  },
-
-  arm: {
-    title: "Kol",
-    type: "number",
-    category: [OrderType.CEKET, OrderType.KABAN, OrderType.GOMLEK],
+    position: {
+      column: 2,
+      row: 3,
+    },
   },
 
   waist: {
     title: "Bel",
     type: "number",
+    position: {
+      column: 3,
+      row: 1,
+    },
     category: [OrderType.PANTOLON],
   },
 
   hip: {
     title: "Basen",
     type: "number",
+    position: {
+      column: 3,
+      row: 2,
+    },
     category: [OrderType.PANTOLON],
   },
 
   ag: {
     title: "Ağ",
     type: "number",
+    position: {
+      column: 3,
+      row: 3,
+    },
     category: [OrderType.PANTOLON],
   },
 
   knee: {
     title: "Diz Genişliği",
+    position: {
+      column: 3,
+      row: 4,
+    },
     type: "number",
     category: [OrderType.PANTOLON],
   },
@@ -97,7 +138,55 @@ export const customerDetailTypes = {
   trot: {
     title: "Paça Genişliği",
     type: "number",
+    position: {
+      column: 3,
+      row: 5,
+    },
     category: [OrderType.PANTOLON],
+  },
+
+  embroidery: {
+    title: "Nakış",
+    type: "text",
+    position: {
+      column: 2,
+      row: 6,
+    },
+    category: [OrderType.GOMLEK],
+  },
+
+  backSize: {
+    title: "Arka Boy",
+    type: "number",
+    category: [OrderType.CEKET, OrderType.GOMLEK],
+    position: {
+      column: 1,
+      row: 6,
+    },
+  },
+  frontSize: {
+    title: "Ön Boy",
+    type: "number",
+    position: {
+      column: 1,
+      row: 5,
+    },
+    category: [OrderType.CEKET, OrderType.GOMLEK],
+  },
+  pens: {
+    title: "Pens Ölçüsü",
+    type: "text",
+    position: {
+      column: 2,
+      row: 5,
+    },
+    category: [OrderType.GOMLEK],
+  },
+
+  arm: {
+    title: "Kol",
+    type: "number",
+    category: [OrderType.CEKET, OrderType.KABAN, OrderType.GOMLEK],
   },
 
   pazu: {
@@ -112,31 +201,10 @@ export const customerDetailTypes = {
     category: [OrderType.GOMLEK],
   },
 
-  embroidery: {
-    title: "Nakış",
-    type: "text",
-    category: [OrderType.GOMLEK],
-  },
-
-  backSize: {
-    title: "Arka Boy",
-    type: "number",
-    category: [OrderType.CEKET, OrderType.GOMLEK],
-  },
-  frontSize: {
-    title: "Ön Boy",
-    type: "number",
-    category: [OrderType.CEKET, OrderType.GOMLEK],
-  },
   shoeSize: {
     title: "Ayakkabı Numarası",
     type: "text",
     category: [OrderType.AYAKKABI],
-  },
-  pens: {
-    title: "Pens Ölçüsü",
-    type: "text",
-    category: [OrderType.GOMLEK],
   },
 
   collor: {

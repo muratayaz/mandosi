@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import moment from "moment";
-import { OrderType, PaymentType } from "@prisma/client";
+import { BrandType, OrderType, PaymentType } from "@prisma/client";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 import { MdRestoreFromTrash } from "react-icons/md";
 import { maxAllowedSize } from "../../constants/image";
 import CollarModelsModal from "./CollarModelsModal";
-import { collarModel } from "../../constants/collorModel";
+import { collarModel } from "../../constants/collarModel";
 
 export default function OrderForm(props: any) {
   const today = new Date();
@@ -45,7 +45,8 @@ export default function OrderForm(props: any) {
       trialDate: yup.date().min(today, "Geçerli bir tarih giriniz"),
       description: yup.string(),
       paymentType: yup.string().required("Ödeme tipini seçiniz"),
-      price: yup.number().required("Sipariş fiyatını giriniz"),
+      brand: yup.string(),
+      price: yup.number(),
       paid: yup
         .number()
         .required("Ödenen miktarı giriniz")
@@ -69,6 +70,7 @@ export default function OrderForm(props: any) {
   } = useForm({
     resolver: yupResolver(scheme),
   });
+  console.log(errors);
 
   useEffect(() => {
     const id = Number(watch("customerId"));
@@ -186,7 +188,7 @@ export default function OrderForm(props: any) {
           </InputGroup>
           <SimpleGrid
             columns={{
-              sm: 2,
+              sm: 3,
             }}
             gap={5}
           >
@@ -199,6 +201,22 @@ export default function OrderForm(props: any) {
                 {...register("type")}
               >
                 {Object.values(OrderType).map((type, idx) => (
+                  <option key={idx} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl id="brand" isInvalid={Boolean(errors.brand)}>
+              <FormLabel noOfLines={1}>Kategori</FormLabel>
+              <Select
+                id="brand"
+                placeholder="Marka Seçiniz"
+                defaultValue={order.brand}
+                {...register("brand")}
+              >
+                {Object.values(BrandType).map((type, idx) => (
                   <option key={idx} value={type}>
                     {type}
                   </option>
@@ -222,122 +240,89 @@ export default function OrderForm(props: any) {
               </Select>
             </FormControl>
 
-            <GridItem
-              colSpan={{
-                sm: 2,
-              }}
+            <FormControl id="trialDate" isInvalid={Boolean(errors.trialDate)}>
+              <FormLabel noOfLines={1}>1. Prova Tarihi</FormLabel>
+              <Input
+                id="trialDate"
+                type="date"
+                defaultValue={moment(order.trialDate).format("YYYY-MM-DD")}
+                {...register("trialDate")}
+              />
+            </FormControl>
+
+            <FormControl id="trialDate2" isInvalid={Boolean(errors.trialDate2)}>
+              <FormLabel noOfLines={1}>2. Prova Tarihi</FormLabel>
+              <Input
+                id="trialDate2"
+                type="date"
+                defaultValue={
+                  order.trialDate2
+                    ? moment(order.trialDate2).format("YYYY-MM-DD")
+                    : null
+                }
+                {...register("trialDate2")}
+              />
+            </FormControl>
+
+            <FormControl
+              id="deliveryDate"
+              isInvalid={Boolean(errors.deliveryDate)}
             >
-              <SimpleGrid
-                columns={{
-                  sm: 3,
-                }}
-                gap={5}
-              >
-                <FormControl
-                  id="trialDate"
-                  isInvalid={Boolean(errors.trialDate)}
-                >
-                  <FormLabel noOfLines={1}>1. Prova Tarihi</FormLabel>
-                  <Input
-                    id="trialDate"
-                    type="date"
-                    defaultValue={moment(order.trialDate).format("YYYY-MM-DD")}
-                    {...register("trialDate")}
-                  />
-                </FormControl>
+              <FormLabel noOfLines={1}>Teslim Tarihi</FormLabel>
+              <Input
+                id="deliveryDate"
+                type="date"
+                defaultValue={moment(order.deliveryDate).format("YYYY-MM-DD")}
+                {...register("deliveryDate")}
+              />
+            </FormControl>
 
-                <FormControl
-                  id="trialDate2"
-                  isInvalid={Boolean(errors.trialDate2)}
-                >
-                  <FormLabel noOfLines={1}>2. Prova Tarihi</FormLabel>
-                  <Input
-                    id="trialDate2"
-                    type="date"
-                    defaultValue={
-                      order.trialDate2
-                        ? moment(order.trialDate2).format("YYYY-MM-DD")
-                        : null
-                    }
-                    {...register("trialDate2")}
-                  />
-                </FormControl>
-
-                <FormControl
-                  id="deliveryDate"
-                  isInvalid={Boolean(errors.deliveryDate)}
-                >
-                  <FormLabel noOfLines={1}>Teslim Tarihi</FormLabel>
-                  <Input
-                    id="deliveryDate"
-                    type="date"
-                    defaultValue={moment(order.deliveryDate).format(
-                      "YYYY-MM-DD"
-                    )}
-                    {...register("deliveryDate")}
-                  />
-                </FormControl>
-              </SimpleGrid>
-            </GridItem>
-
-            <GridItem
-              colSpan={{
-                sm: 2,
-              }}
+            <FormControl
+              id="paymentType"
+              isInvalid={Boolean(errors.paymentType)}
             >
-              <SimpleGrid
-                columns={{
-                  sm: 3,
-                }}
-                gap={5}
+              <FormLabel noOfLines={1}>Ödeme Türü</FormLabel>
+              <Select
+                id="paymentType"
+                placeholder="Ödeme türü Seçiniz"
+                defaultValue={order.paymentType}
+                {...register("paymentType")}
               >
-                <FormControl
-                  id="paymentType"
-                  isInvalid={Boolean(errors.paymentType)}
-                >
-                  <FormLabel noOfLines={1}>Ödeme Türü</FormLabel>
-                  <Select
-                    id="paymentType"
-                    placeholder="Ödeme türü Seçiniz"
-                    defaultValue={order.paymentType}
-                    {...register("paymentType")}
-                  >
-                    {Object.values(PaymentType).map((type, idx) => (
-                      <option key={idx} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl id="paid" isInvalid={Boolean(errors.paid)}>
-                  <FormLabel noOfLines={1}>Avans</FormLabel>
-                  <InputGroup>
-                    <Input
-                      id="paid"
-                      defaultValue={order.paid}
-                      min={0}
-                      {...register("paid")}
-                    />
-                    <InputRightElement children=" TL" />
-                  </InputGroup>
-                </FormControl>
+                {Object.values(PaymentType).map((type, idx) => (
+                  <option key={idx} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl id="paid">
+              <FormLabel noOfLines={1}>Avans</FormLabel>
+              <InputGroup>
+                <Input
+                  id="paid"
+                  defaultValue={order.paid || 0}
+                  type="number"
+                  min={0}
+                  {...register("paid")}
+                />
+                <InputRightElement children=" TL" />
+              </InputGroup>
+            </FormControl>
+            <FormControl id="price" isInvalid={Boolean(errors.price)}>
+              <FormLabel noOfLines={1}>Toplam Ücret</FormLabel>
+              <InputGroup>
+                <Input
+                  id="price"
+                  type="number"
+                  defaultValue={order.price}
+                  min={0}
+                  {...register("price")}
+                />
+                <InputRightElement children=" TL" />
+              </InputGroup>
+            </FormControl>
 
-                <FormControl id="price" isInvalid={Boolean(errors.price)}>
-                  <FormLabel noOfLines={1}>Toplam Ücret</FormLabel>
-                  <InputGroup>
-                    <Input
-                      id="price"
-                      defaultValue={order.price}
-                      min={0}
-                      {...register("price")}
-                    />
-                    <InputRightElement children=" TL" />
-                  </InputGroup>
-                </FormControl>
-              </SimpleGrid>
-            </GridItem>
-
-            <GridItem colSpan={{ sm: 2 }}>
+            <GridItem colSpan={{ sm: 3 }}>
               <FormControl
                 aria-colspan={2}
                 id="description"

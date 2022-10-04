@@ -21,7 +21,7 @@ import {
 import Image from "next/image";
 import React, { useState } from "react";
 import { MdRestoreFromTrash, MdSearch } from "react-icons/md";
-import { collarModel } from "../../constants/collorModel";
+import { collarModel } from "../../constants/collarModel";
 
 function CollarModelsModal({ selected, setValue, clearModel }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
