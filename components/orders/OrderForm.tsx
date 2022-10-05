@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import moment from "moment";
-import { BrandType, OrderType, PaymentType } from "@prisma/client";
+import { OrderType, PaymentType } from "@prisma/client";
 
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -28,6 +28,7 @@ import { MdRestoreFromTrash } from "react-icons/md";
 import { maxAllowedSize } from "../../constants/image";
 import CollarModelsModal from "./CollarModelsModal";
 import { collarModel } from "../../constants/collarModel";
+import { brands } from "../../constants/brands";
 
 export default function OrderForm(props: any) {
   const today = new Date();
@@ -209,16 +210,16 @@ export default function OrderForm(props: any) {
             </FormControl>
 
             <FormControl id="brand" isInvalid={Boolean(errors.brand)}>
-              <FormLabel noOfLines={1}>Kategori</FormLabel>
+              <FormLabel noOfLines={1}>Marka</FormLabel>
               <Select
                 id="brand"
                 placeholder="Marka Seçiniz"
                 defaultValue={order.brand}
                 {...register("brand")}
               >
-                {Object.values(BrandType).map((type, idx) => (
-                  <option key={idx} value={type}>
-                    {type}
+                {Object.values(brands).map((brand, idx) => (
+                  <option key={idx} value={brand}>
+                    {brand}
                   </option>
                 ))}
               </Select>

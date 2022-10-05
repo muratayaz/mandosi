@@ -111,6 +111,8 @@ model Detail {
   pens         String?
   frontSize    String?
   backSize     String?
+  height       String?
+  lowerCalf    String?
 
   customer Customer?
   order    Orders?
@@ -123,10 +125,6 @@ enum OrderType {
   YELEK
   KABAN
   AYAKKABI
-  DIGER
-}
-
-enum BrandType {
   DIGER
 }
 
@@ -147,7 +145,7 @@ model Orders {
   paymentType PaymentType?
   price       Int?
   paid        Int?
-  brand       BrandType?
+  brand       String?
 
   type         OrderType?
   deliveryDate DateTime?

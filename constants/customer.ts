@@ -182,6 +182,24 @@ export const customerDetailTypes = {
     },
     category: [OrderType.GOMLEK],
   },
+  height: {
+    title: "Yükseklik",
+    type: "number",
+    position: {
+      column: 3,
+      row: 7,
+    },
+    category: [OrderType.PANTOLON],
+  },
+  lowerCalf: {
+    title: "Alt Baldır",
+    type: "number",
+    position: {
+      column: 3,
+      row: 8,
+    },
+    category: [OrderType.PANTOLON],
+  },
 
   arm: {
     title: "Kol",

@@ -1,0 +1,15 @@
+export const brands = [
+  "Loro Piana",
+  "Optimax",
+  "Lanificio Del Eleganza",
+  "Scabal",
+  "Dormeuil",
+  "Finitura Felice",
+  "Ariston Fabrics",
+  "Söktaş",
+  "Twill Napoli",
+  "Angellico",
+  "Lanificio Fratelli Cerruti",
+  "Bianco Nero",
+  "Diğer",
+];

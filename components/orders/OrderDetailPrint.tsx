@@ -69,15 +69,15 @@ function OrderDetailPrint({ order, customers }) {
             </Text>
           </div>
         </div>
-        {/* <div>
+        <div>
           <div
             style={{
               width: "33%",
               display: "inline-block",
             }}
           >
-            <Text>Ödeme Türü</Text>
-            <Text>{order.paymentType}</Text>
+            <Text>Kategori</Text>
+            <Text>{order.type}</Text>
           </div>
           <div
             style={{
@@ -85,19 +85,10 @@ function OrderDetailPrint({ order, customers }) {
               display: "inline-block",
             }}
           >
-            <Text>Avans</Text>
-            <Text>{order.paid} TL</Text>
+            <Text>Marka</Text>
+            <Text>{order.brand}</Text>
           </div>
-          <div
-            style={{
-              width: "33%",
-              display: "inline-block",
-            }}
-          >
-            <Text>Toplam Ücret</Text>
-            <Text>{order.price} TL</Text>
-          </div>
-        </div> */}
+        </div>
         <div>
           <Text>Açıklama</Text>
           <Text noOfLines={1}>{order.description}</Text>
